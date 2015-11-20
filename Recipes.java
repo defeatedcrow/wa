@@ -163,7 +163,7 @@ public class Recipes {
                 "M M",
                 "MMM",
                 'M', Items.磁鉄鉱インゴット);
-
+        
         GameRegistry.addShapedRecipe(new ItemStack(Blocks.zabuton, 4),
                 "MM",
                 "MM",
