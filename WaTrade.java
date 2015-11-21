@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import wa.block.Blocks;
+import wa.item.EnumFood;
+import wa.item.Items;
 
 import java.util.Random;
 
@@ -49,8 +51,8 @@ public class WaTrade implements IVillageTradeHandler {
 			recipeList.add(new MerchantRecipe( new ItemStack(Items.貨幣, 1 + random.nextInt(8), 0), new ItemStack(Items.毛筆)));
 			//掛け軸
 			recipeList.add(new MerchantRecipe( new ItemStack(Items.貨幣, 5 + random.nextInt(8), 0), new ItemStack(Items.掛け軸)));
-			//暖簾
-			recipeList.add(new MerchantRecipe( new ItemStack(Items.貨幣, 5 + random.nextInt(8), 0), new ItemStack(Blocks.noren)));
+            //暖簾
+            recipeList.add(new MerchantRecipe( new ItemStack(Items.貨幣, 5 + random.nextInt(8), 0), new ItemStack(Blocks.noren)));
 		}
 		else if(villager.getProfession() == Config.刀鍛冶ID) {
 			//鉄インゴット→銀貨1～4

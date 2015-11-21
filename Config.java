@@ -19,14 +19,17 @@ public class Config {
 	public static int achivementID;
 	public static double 鳥居出現率;
 	public static double 筍成長確率;
-	public static int レシピ難易度;
+    public static int レシピ難易度;
+    public static int 酒造レシピ難易度;
 	public static int 玉鋼強度;
 	public static int 醸造樽GUIID;
 	public static int 茶人ID;
 	public static int echantmentBaseID;
 	public static int 神官ID;
+    public static int 圧搾機GUIID;
+    public static int 蒸留器GUIID;
 
-	public static void preInit(File file) {
+    public static void preInit(File file) {
 		Configuration cfg = new Configuration(file);
 		try {
 			cfg.load();
@@ -43,10 +46,13 @@ public class Config {
 			鳥居出現率 = cfg.get(Configuration.CATEGORY_GENERAL, "鳥居出現率", 1.0D).getDouble(1.0D);
 			筍成長確率 = cfg.get(Configuration.CATEGORY_GENERAL, "筍成長確率", 1.0D).getDouble(1.0D);
 			鍛練回数 = cfg.get(Configuration.CATEGORY_GENERAL, "鍛練回数", 2).getInt();
-			レシピ難易度 = cfg.get(Configuration.CATEGORY_GENERAL, "レシピ難易度", 0).getInt();
+			レシピ難易度 = cfg.get(Configuration.CATEGORY_GENERAL, "レシピ難易度", 0, "0:UltraHard, 1:Hard, 2:Normal, 3:Vanilla").getInt();
 			玉鋼強度 = cfg.get(Configuration.CATEGORY_GENERAL, "玉鋼強度", 10).getInt();
 			醸造樽GUIID = cfg.get(Configuration.CATEGORY_GENERAL, "醸造樽GUIID", 17).getInt();
 			echantmentBaseID = cfg.get(Configuration.CATEGORY_GENERAL, "echantmentBaseID", 70).getInt();
+            圧搾機GUIID = cfg.get(Configuration.CATEGORY_GENERAL, "圧搾機GUIID", 18).getInt();
+            蒸留器GUIID = cfg.get(Configuration.CATEGORY_GENERAL, "蒸留器GUIID", 19).getInt();
+            酒造レシピ難易度 = cfg.get(Configuration.CATEGORY_GENERAL, "酒造レシピ難易度", 0, "0:UltraHard, 1:Hard, 2:Normal, 3:Vanilla").getInt();
 			cfg.save();
 		} catch (Exception e) {
 			FMLLog.log(Level.ERROR, e, Wa.modid + " load config exception");

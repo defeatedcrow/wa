@@ -20,7 +20,18 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import wa.block.Blocks;
-import wa.recipe.RecipeRegisterWa;
+import wa.entity.*;
+import wa.event.BonemealEventHandler;
+import wa.event.GetVillageBlockIDEventHandler;
+import wa.event.LivingDeathEventHandler;
+import wa.event.SaplingGrowTreeEventHandler;
+import wa.item.Items;
+import wa.recipe.RecipeRegistryWa;
+import wa.recipe.Recipes;
+import wa.world.WorldChunkManagerWa;
+import wa.world.WorldGenTakenoko;
+import wa.world.WorldGenTorii;
+import wa.world.WorldProviderWa;
 
 @Mod(modid = Wa.modid, name = Wa.modid, version = "1.7.10.14")
 public class Wa {
@@ -40,7 +51,7 @@ public class Wa {
 	public void preInit(FMLPreInitializationEvent event) {
 		
 		// APIの初期化
-		RecipeRegisterWa.registerInstance();
+		RecipeRegistryWa.registerInstance();
 
 		Config.preInit(event.getSuggestedConfigurationFile());
 		Blocks.preInit();
@@ -49,8 +60,8 @@ public class Wa {
 		proxy.preInit();
 		
 		// defeatedcrow作成、液体追加
-		FluidInit.preInit();
-
+		wa.FluidInit.preInit();
+		
 	}
 
 	@EventHandler
@@ -141,6 +152,6 @@ public class Wa {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		Recipes.postInit();
-		RecipeRegisterWa.registerRecipe();
+		RecipeRegistryWa.registerRecipe();
 	}
 }

@@ -4,15 +4,20 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import mods.defeatedcrow.common.AMTLogger;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import wa.*;
 import wa.block.*;
-import wa.client.*;
+import wa.entity.*;
 
 import java.io.*;
 
@@ -41,13 +46,27 @@ public class ClientProxy extends CommonProxy {
 		BlockSusuki.renderID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderSusuki());
 
+        BlockSpiritLamp.renderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new RenderSpiritLampBlock());
+
+        BlockStill.renderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new RenderStillBlock());
+
+        BlockSqueezer.renderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new RenderSqueezerBlock());
+
 		// defeatedcrow追加物
 		RenderingRegistry.registerEntityRenderingHandler(EntityZabuton.class, new RenderZabutonEntity());
 		
 		ClientRegistry.registerTileEntity(TileEntityZabuton.class, "wa.tileentityZabuton", new RenderZabutonBlock());
-		ClientRegistry.registerTileEntity(TileEntityKoto.class, "wa.tileentityKoto", new RenderKotoBlock());
-		
-		MinecraftForge.EVENT_BUS.register(new Particles());
+        ClientRegistry.registerTileEntity(TileEntityKoto.class, "wa.tileentityKoto", new RenderKotoBlock());
+        /**
+		 * @author deteatedcrow
+		 * Renderを登録するTileEntityはプロキシを通す
+		 */
+        ClientRegistry.registerTileEntity(TileEntitySpiritLamp.class, "wa.spiritLamp", new RenderSpiritLampTile());
+
+        MinecraftForge.EVENT_BUS.register(new Particles());
 
 		VillagerRegistry.instance().registerVillagerSkin(Config.町人ID, new ResourceLocation("wa", "textures/villager.png"));
 		VillagerRegistry.instance().registerVillagerSkin(Config.刀鍛冶ID, new ResourceLocation("wa", "textures/swordsmith.png"));
@@ -114,6 +133,15 @@ public class ClientProxy extends CommonProxy {
 	
 	@SubscribeEvent
 	public void onTextureStitch(TextureStitchEvent.Post event) {
-		FluidInit.umesyuFluid.setIcons(FluidInit.fluidDummyBlock.getIcon(0, 0));
-	}
+			for(Fluid fluid : FluidInit.fluids) {
+	        	String name = fluid.getName();
+	        	String sub = name.substring(9);
+        		AMTLogger.info("subString :" + sub);
+        		if (sub.contains("arkhi")){
+        			sub = "kumis";
+        		}
+            	IIcon ret = event.map.registerIcon("wa:fluid/" + sub + "_still");
+                fluid.setIcons(ret);
+	        }
+ 	}
 }

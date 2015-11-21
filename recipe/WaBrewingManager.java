@@ -1,25 +1,23 @@
 package wa.recipe;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+import wa.api.IBrewingRegistry;
+import wa.api.IWaBrewingRecipe;
+import wa.api.RecipeManagerWa;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import wa.api.IBrewingRegister;
-import wa.api.IWaBrewingRecipe;
-import wa.api.RecipeManagerWa;
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-
-public class WaBrewingManager implements IBrewingRegister {
+public class WaBrewingManager implements IBrewingRegistry {
 
 	private static ArrayList<WaBrewingRecipe> recipes;
 	private static Map<Integer, WaBrewingRecipe> recipeMap;
@@ -29,11 +27,16 @@ public class WaBrewingManager implements IBrewingRegister {
 		this.recipeMap = new HashMap<Integer, WaBrewingRecipe>();
 	}
 
-	public IBrewingRegister instance() {
-		return RecipeManagerWa.brewingRegister;
+	public IBrewingRegistry instance() {
+		return RecipeManagerWa.brewingRegistry;
 	}
 
-	@Override
+    @Override
+    public String getVersion() {
+        return "1.0";
+    }
+
+    @Override
 	public ArrayList<? extends IWaBrewingRecipe> getRecipeList() {
 		return this.recipes;
 	}
